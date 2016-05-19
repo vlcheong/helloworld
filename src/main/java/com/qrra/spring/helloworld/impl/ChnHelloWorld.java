@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 @Service("chnHelloWorld")
 public class ChnHelloWorld implements HelloWorld {
 
+    public static final String GREETING = "嗨！你好吗？";
+
     @Override
-    public void sayHello() {
-        System.out.println("嗨！你好吗？");
+    public String sayHello() {
+        System.out.println(GREETING);
+        return GREETING;
     }
 }

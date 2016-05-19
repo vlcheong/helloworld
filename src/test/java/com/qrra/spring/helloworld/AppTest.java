@@ -1,38 +1,52 @@
 package com.qrra.spring.helloworld;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import com.qrra.spring.helloworld.HelloWorld;
+import com.qrra.spring.helloworld.impl.*;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
+import static org.junit.Assert.*;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import javax.inject.Inject;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(
+    locations = {
+        "classpath:beans.xml",
+        "classpath:context.xml"
+    })
+public class AppTest {
+
+    @Inject
+    @Qualifier("springHelloWorld")
+    private HelloWorld springHelloWorld;
+
+    @Inject
+    @Qualifier("javaeeHelloWorld")
+    private HelloWorld javaeeHelloWorld;
+
+    @Inject
+    @Qualifier("chnHelloWorld")
+    private HelloWorld chnHelloWorld;
+
+    @Inject
+    @Qualifier("engHelloWorld")
+    private HelloWorld engHelloWorld;
+
+    @Test
+    public void testHello() {
+        assertEquals(SpringHelloWorld.HELLO, springHelloWorld.sayHello());
+        assertEquals(JavaEEHelloWorld.HELLO, javaeeHelloWorld.sayHello());
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-        assertTrue( true );
+    @Test
+    public void testGreeting() {
+        assertEquals(ChnHelloWorld.GREETING, chnHelloWorld.sayHello());
+        assertEquals(EngHelloWorld.GREETING, engHelloWorld.sayHello());
     }
 }

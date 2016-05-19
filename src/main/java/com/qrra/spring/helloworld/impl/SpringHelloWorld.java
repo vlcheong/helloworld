@@ -4,8 +4,11 @@ import com.qrra.spring.helloworld.HelloWorld;
 
 public class SpringHelloWorld implements HelloWorld {
 
+    public static final String HELLO = "Spring Says Hello !!!";
+
     @Override
-    public void sayHello() {
-        System.out.println("Spring Says Hello !!!");
+    public String sayHello() {
+        System.out.println(HELLO);
+        return HELLO;
     }
 }
